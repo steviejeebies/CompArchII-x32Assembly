@@ -6,7 +6,6 @@
 #include "t1.h"
 #include <iostream>         // std::cout
 #include "fib32.h"          // header file for fib32.asm
-#include <chrono>
 
 //
 // fib: C++
@@ -102,16 +101,13 @@ int main() {
 	 //t1
 	
 	 //Polynomial evaluation
-	auto begin = std::chrono::high_resolution_clock::now();
 	check("poly(2)", poly(2), 7);
 	check("poly(3)", poly(3), 13);
 	check("poly(-1)", poly(-1), 1);
 	check("poly(-2)", poly(-2), 3);
-	auto end = std::chrono::high_resolution_clock::now();
-	auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
-	printf("POLY FUNCTION Time measured: %.5f seconds.\n", elapsed.count() * 1e-9);
 
 	// Factorial evaluation
+	int factorialResult = factorial(5);
 	check("factorial(5)", factorial(5), 120);
 	check("factorial(4)", factorial(4), 24);
 	check("factorial(10)", factorial(7), 5040);
