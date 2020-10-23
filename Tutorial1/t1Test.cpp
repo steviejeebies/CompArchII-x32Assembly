@@ -84,7 +84,7 @@ void multiple_k(uint16_t N, uint16_t K, uint16_t* array)
 //
 // check
 //
-void check(char *s, int v, int expected) {
+void check(const char *s, int v, int expected) {
 	std::cout << s << " = " << v;
 	if (v == expected) {
 		std::cout << " OK";
@@ -106,28 +106,28 @@ int main() {
 	//check("poly(-1)", poly(-1), 1);
 	//check("poly(-2)", poly(-2), 3);
 
-	//// Factorial evaluation
-	//check("factorial(5)", factorial(5), 120);
-	//check("factorial(4)", factorial(4), 24);
-	//check("factorial(10)", factorial(7), 5040);
-	//check("factorial(6)", factorial(6), 720);
+	// Factorial evaluation
+	check("factorial(5)", factorial(5), 120);
+	check("factorial(4)", factorial(4), 24);
+	check("factorial(10)", factorial(7), 5040);
+	check("factorial(6)", factorial(6), 720);
 
-	// Multiple_k evluation
-	uint16_t K1 = 3;
-	const uint16_t N1 = 10;
-	uint16_t array_N1[N1];
-	uint16_t array_N2[N1];
-	std::cout << "Array of multiples by Assembly: \n";
-	multiple_k_asm(N1, K1, array_N1);
-	for (uint16_t i = 0; i < N1; ++i)
-		std::cout << array_N1[i] << " ";
+	//// Multiple_k evluation
+	//uint16_t K1 = 3;
+	//const uint16_t N1 = 10;
+	//uint16_t array_N1[N1];
+	//uint16_t array_N2[N1];
+	//std::cout << "Array of multiples by Assembly: \n";
+	//multiple_k_asm(N1, K1, array_N1);
+	//for (uint16_t i = 0; i < N1; ++i)
+	//	std::cout << array_N1[i] << " ";
 
-	std::cout << "\n";
+	//std::cout << "\n";
 
-	std::cout << "Array of multiples by C++: \n";
-	multiple_k(N1, K1, array_N2);
-	for (uint16_t i = 0; i < N1; ++i)
-		std::cout << array_N2[i] << " ";
+	//std::cout << "Array of multiples by C++: \n";
+	//multiple_k(N1, K1, array_N2);
+	//for (uint16_t i = 0; i < N1; ++i)
+	//	std::cout << array_N2[i] << " ";
 
 	//std::cout << "\n";
 

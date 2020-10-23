@@ -56,25 +56,49 @@ multiple_k_asm:
 		mov esi, [ebp + 16]		; esi is now pointing to the array
 		mov cx, [ebp + 12]		; CX = K
 		mov bx, 0				; BX = i
-next:	cmp bx, [ebp + 8]		; if i >= N, we're done
-		jge done				; jump if above or equal (unsigned) 
+nextMu:	cmp bx, [ebp + 8]		; if i >= N, we're done
+		jge endMu				; jump if above or equal (unsigned) 
 		xor dx, dx				; clear EDX as this register is used by IDIV
 		movzx eax, bx			; AX = i
 		inc ax					; AX = i + 1
 		idiv cx					; AL = (i + 1)%k
 		cmp dx, 0				; if(i+1)%k (i.e. remaninder) == 0, Note: remainder stored in DX
-		jne elsea
+		jne elseMu
 		mov [esi], WORD PTR 1
-		jmp cont
-elsea:	mov [esi], WORD PTR 0
-cont:	inc bx
+		jmp whileMu
+elseMu:	mov [esi], WORD PTR 0
+whileMu:inc bx
 		add esi, 2
-		jmp next
-done:
-	;; Epilogue
-		mov esp, ebp
+		jmp nextMu
+;; Epilogue
+endMu:	mov esp, ebp
 		pop ebp
 		ret
+
+public factorial
+factorial:
+;;		Prologue
+		push ebp
+		mov ebp, esp
+
+;;		Main function
+		mov ebx,  [ebp+8]	; get parameter, store in EBX
+		cmp ebx, 0			; if (N = 0)...
+		jne	elseF
+		mov eax, 1			; result = 1, return
+		jmp endF
+elseF:						; if (N != 0)...
+		dec ebx				; N-1
+		push ebx			; (push N-1 as parameter, and keep it safe as caller) 
+		call factorial		; recursive call, result will be in EAX
+		pop ebx				; restore EBX (i.e. N).
+		inc ebx				; N
+		imul ebx			; factorial = N * factorial(N-1) (result stored in EAX)
+;;		Epilogue
+endF:
+		mov esp, ebp
+		pop ebp
+		ret	
 	
 
 END
